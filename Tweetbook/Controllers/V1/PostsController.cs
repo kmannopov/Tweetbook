@@ -8,7 +8,7 @@ using Tweetbook.Services;
 namespace Tweetbook.Controllers.V1;
 public class PostsController : Controller
 {
-    private IPostService _postService;
+    private readonly IPostService _postService;
 
     public PostsController(IPostService postService)
     {
@@ -42,7 +42,7 @@ public class PostsController : Controller
         var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
         var locationUri = $"{baseUrl}/{ApiRoutes.Posts.Get.Replace("{postId}", post.Id.ToString())}";
 
-        var response = new PostResponse { Id = post.Id };
+        var response = new PostResponse { Id = post.Id, Name = post.Name };
         return Created(locationUri, response);
     }
 

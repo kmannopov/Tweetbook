@@ -42,6 +42,10 @@ public class PostService : IPostService
     public async Task<bool> DeletePostAsync(Guid postId)
     {
         var post = await GetPostByIdAsync(postId);
+
+        if (post is null)
+            return false;
+
         _dataContext.Posts.Remove(post);
         var deleted = await _dataContext.SaveChangesAsync();
 
